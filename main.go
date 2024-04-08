@@ -71,8 +71,8 @@ func main() {
 		return
 	}
 
-	flags.Server = "ss://chacha20-ietf-poly1305:111111@:6667"
-	flags.Cipher = "chacha20-ietf-poly1305"
+	flags.Server = "ss://aes-256-gcm:111111@0.0.0.0:6667"
+	flags.Cipher = "aes-256-gcm"
 	flags.Password = "111111"
 	flags.UDPSocks = true
 	config.Verbose = true

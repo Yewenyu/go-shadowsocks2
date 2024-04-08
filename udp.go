@@ -7,6 +7,7 @@ import (
 
 	"sync"
 
+	"github.com/miekg/dns"
 	"github.com/shadowsocks/go-shadowsocks2/socks"
 )
 
@@ -153,6 +154,12 @@ func udpRemote(addr string, shadow func(net.PacketConn) net.PacketConn) {
 		}
 
 		payload := buf[len(tgtAddr):n]
+
+		if tgtUDPAddr.Port == 53 {
+			msg := new(dns.Msg)
+			_ = msg.Unpack(payload)
+			logf("[DNS] %s ---> %s", tgtUDPAddr, msg.Question[0])
+		}
 
 		pc := nm.Get(raddr.String())
 		if pc == nil {
